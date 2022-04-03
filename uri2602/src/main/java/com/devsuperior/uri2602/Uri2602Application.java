@@ -24,10 +24,18 @@ public class Uri2602Application implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<CustomerMinProjection> list = repository.searchNativeName("RS");
-		List<CustomerNameDTO> customerNameDTO = list.stream().map(e -> new CustomerNameDTO(e)).collect(Collectors.toList());
+		System.out.printf("\n\n---Consulta em NATIVE QUERY---");
+		List<CustomerMinProjection> list = repository.searchNativeName("rs");
+		List<CustomerNameDTO> customersNameDTO = list.stream().map(e -> new CustomerNameDTO(e)).collect(Collectors.toList());
 		
-		customerNameDTO.forEach(e -> System.out.println(e.getName()));
+		customersNameDTO.forEach(e -> System.out.println(e.getName())); 
+		
+//		JPQL
+		System.out.printf("\n\n---Consulta em JPQL---");
+		
+		List<CustomerNameDTO> customersNameDTOJPQL = repository.searchJPQLName("rs");
+		customersNameDTOJPQL.forEach(e -> System.out.println(e.getName()));
+		
 		
 	}
 }
